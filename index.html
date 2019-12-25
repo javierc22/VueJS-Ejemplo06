@@ -12,16 +12,48 @@
    <!-- Vuex -->
    <script src="https://unpkg.com/vuex@3.1.2/dist/vuex.js"></script>
 
-   <title>VueJS - Ejemplo 5</title>
+   <title>VueJS - Ejemplo 6</title>
 </head>
 <body>
    <div id="app" class="container mt-5">
-      
+      <titulo></titulo>
    </div>
 
    <script>
+      Vue.component('titulo',{
+         template:
+         `
+         <div>
+            <h1>numero: {{ $store.state.numero }}</h1>
+            <hijo></hijo>
+         </div>
+         `
+      });
+
+      Vue.component('hijo',{
+         template:
+         `
+         <div>
+            <button @click="$store.commit('aumentar')">+</button>
+            <h1>numero: {{ $store.state.numero }}</h1>
+         </div>
+         `
+      });
+
+      const store = new Vuex.Store({
+         state: {
+            numero: 10
+         },
+         mutations: {
+            aumentar(state) {
+               state.numero++ 
+            }
+         }
+      });
+
       new Vue({
-         el: '#app'
+         el: '#app',
+         store: store
       });
    </script>
 </body>
